@@ -39,7 +39,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           #dockerImageName: {{ .Values.artifactoryUrl }}/{{ .Values.sourceRepository }}/{{ .Values.imageName }}  # replace with your image path and name
-          dockerImageName: eranb-su204-docker-staging-local/{{ .Values.imageName }}  # replace with your image path and name
+          dockerImageName: eranb-su204-docker-staging-local.jfrog.io/{{ .Values.imageName }}  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: app_repo
@@ -89,10 +89,10 @@ pipelines:
             - name: app_promoted_buildinfo
         execution:
           onStart:
-            - jfrog rt docker-pull eranb-su204-docker-prod-local/{{ .Values.imageName }}:$res_app_promoted_buildinfo_buildNumber {{ .Values.prodRepository }}
+            - jfrog rt docker-pull eranb-su204-docker-prod-local.jfrog.io/{{ .Values.imageName }}:$res_app_promoted_buildinfo_buildNumber {{ .Values.prodRepository }}
             #- jfrog rt dl prod-go-local/app
             #- ls -latr
           onExecute:
-            - docker run eranb-su204-docker-prod-local/{{ .Values.imageName }}:$res_app_promoted_buildinfo_buildNumber
+            - docker run eranb-su204-docker-prod-local.jfrog.io/{{ .Values.imageName }}:$res_app_promoted_buildinfo_buildNumber
             #- chmod +x app
             #- ./app
